@@ -26,9 +26,10 @@ const checkWin = ()=>{
     wins.forEach(e =>{
         console.log(boxtext[e[0]].innerHTML)
         if((boxtext[e[0]].innerText === boxtext[e[1]].innerText) && (boxtext[e[2]].innerText === boxtext[e[1]].innerText) && (boxtext[e[0]].innerText !== "") ){
-            document.querySelector('.info').innerText = boxtext[e[0]].innerText + " Won"
+            document.querySelector('.info').innerText = " Won"
+            document.querySelector('.turnText').innerText = boxtext[e[0]].innerText
             isgameover = true
-            document.querySelector('.imgbox').getElementsByTagName('img')[0].style.width = "200px";
+            document.querySelector('.imgbox').getElementsByTagName('img')[0].style.width = "300px";
             document.querySelector(".line").style.transform = `translate(${e[3]}vw, ${e[4]}vw) rotate(${e[5]}deg)`
             document.querySelector(".line").style.width = "20vw";
         }
@@ -43,26 +44,57 @@ Array.from(boxes).forEach(element =>{
     element.addEventListener('click', ()=>{
         if(boxtext.innerText === ''){
             boxtext.innerText = turn;
+            element.classList.add('clicked'); // Add the 'clicked' class
+            document.querySelector('.turnText').classList.add('clicked'); // Add the 'clicked' class
+            
+            setTimeout(() => {
+                element.classList.remove('clicked'); // Remove the 'clicked' class after the animation duration
+                document.querySelector('.turnText').classList.remove('clicked');
+            }, 3000);
+            element.style.backgroundColor='#e3d5ca'
+            if(turn=== 'X'){
+                boxtext.style.color='red';
+                
+            }
+            else{
+                boxtext.style.color='blue';
+
+            }
             turn = changeTurn();
             audioTurn.play();
             checkWin();
             if (!isgameover){
-                document.getElementsByClassName("info")[0].innerText  = "Turn for " + turn;
-            } 
+                let turnText= document.querySelector(".turnText");  
+                turnText.innerText=  turn;
+                if(turn=== 'X'){
+
+                    turnText.style.color='red';
+                }
+                else{
+                    turnText.style.color='blue';
+
+                }
+                
+             } 
         }
     })
 })
 
 // Add onclick listener to reset button
 reset.addEventListener('click', ()=>{
+    
     let boxtexts = document.querySelectorAll('.boxtext');
     Array.from(boxtexts).forEach(element => {
         element.innerText = ""
+        element.parentNode.style.backgroundColor='transparent';
+        // element.style.backgroundColor='yellow';
     });
     turn = "X"; 
     isgameover = false
     document.querySelector(".line").style.width = "0vw";
-    document.getElementsByClassName("info")[0].innerText  = "Turn for " + turn;
+    document.querySelector(".info").innerText  = "Turn for ";
+    document.querySelector(".turnText").innerText  =  turn;
+    document.querySelector(".turnText").style.color  ='red';
     document.querySelector('.imgbox').getElementsByTagName('img')[0].style.width = "0px"
 })
 
