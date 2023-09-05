@@ -36,6 +36,7 @@
 }
 body{
     background-color: #99582a;
+     /* overflow: hidden; */
 }
 nav{
     background: #22223b;
@@ -64,7 +65,7 @@ nav ul li{
     justify-content: center;
     margin: 2rem 3rem;
     margin-top: 50px;
-    overflow: hidden;
+   
 }
 
 .container{
@@ -120,6 +121,7 @@ nav ul li{
 .gameInfo{
     padding: 0 6rem;
     font-family: 'Baloo Bhaina 2', cursive;
+
 }
 
 .gameInfo h1{
@@ -214,5 +216,11 @@ nav ul li{
         grid-template-rows: repeat(3, 20vw);
         grid-template-columns: repeat(3, 20vw);
     }
-    
+    .gameInfo {
+        /* text-align: center; */
+        padding: 0;
+    }   
+    .gameInfo img{
+        right: -1.5rem ;
+    }
 }
